@@ -87,6 +87,7 @@ env_etl_data_foot/
 target/
 dbt_packages/
 logs/dbt.log
+.user.yml
 
 # DuckDB
 *.duckdb
