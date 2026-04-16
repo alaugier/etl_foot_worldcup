@@ -1,0 +1,86 @@
+version: 2
+
+models:
+  - name: dim_city
+    description: "Distinct host cities across all World Cup editions (1930–2022)."
+    columns:
+      - name: id_city
+        description: "Surrogate key"
+        data_tests:
+          - unique
+          - not_null
+      - name: city_name
+        description: "City name"
+        data_tests:
+          - not_null
+
+  - name: dim_stadium
+    description: "Distinct stadiums with FK to dim_city."
+    columns:
+      - name: id_stadium
+        description: "Surrogate key"
+        data_tests:
+          - unique
+          - not_null
+      - name: stadium_name
+        data_tests:
+          - not_null
+      - name: id_city
+        description: "FK → dim_city.id_city"
+
+  - name: dim_team
+    description: "All distinct team names across every World Cup edition."
+    columns:
+      - name: id_team
+        description: "Surrogate key"
+        data_tests:
+          - unique
+          - not_null
+      - name: team_name
+        data_tests:
+          - not_null
+
+  - name: dim_edition
+    description: "One row per World Cup tournament."
+    columns:
+      - name: id_edition
+        description: "Surrogate key"
+        data_tests:
+          - unique
+          - not_null
+      - name: year
+        description: "Tournament year"
+        data_tests:
+          - unique
+          - not_null
+      - name: edition_name
+        description: "Host country name"
+        data_tests:
+          - not_null
+
+  - name: fct_match
+    description: "One row per World Cup match (finals only, 1930–2022)."
+    columns:
+      - name: id_match
+        description: "Surrogate key"
+        data_tests:
+          - unique
+          - not_null
+      - name: result
+        description: "'home', 'away', or 'draw'"
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ["home", "away", "draw"]
+      - name: id_home_team
+        description: "FK → dim_team.id_team"
+        data_tests:
+          - not_null
+      - name: id_away_team
+        description: "FK → dim_team.id_team"
+        data_tests:
+          - not_null
+      - name: id_edition
+        description: "FK → dim_edition.id_edition"
+        data_tests:
+          - not_null

@@ -83,6 +83,15 @@ ipython_config.py
 # Virtual environment
 env_etl_data_foot/
 
+# dbt
+target/
+dbt_packages/
+logs/dbt.log
+
+# DuckDB
+*.duckdb
+*.duckdb.wal
+
 # Config files with credentials
 config/db_config.yaml
 
