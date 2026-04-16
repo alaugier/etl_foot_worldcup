@@ -88,6 +88,17 @@ env_etl_data_foot/
 # Config files with credentials
 config/db_config.yaml
 
+# Documentation interne non destinée au dépôt
+docs/etl_load_mysql_explained.md
+docs/etl_transform_explained.md
+docs/extract_final_results_2022.md
+docs/fonction_clean_team_name.md
+docs/main_explained.md
+docs/pd_concat_two_columns.md
+docs/regex.md
+docs/reserved_sql_keywords_and_use_of_backticks.md
+docs/useful_commandes_bash.md
+
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
 #   intended to run in multiple environments; otherwise, check them in:
