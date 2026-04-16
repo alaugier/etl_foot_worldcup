@@ -97,6 +97,9 @@ docs/regex.md
 docs/reserved_sql_keywords_and_use_of_backticks.md
 docs/useful_commandes_bash.md
 
+# Markdown exports of notebooks (not versioned)
+notebooks/*.md
+
 # pyenv
 # .python-version
 
