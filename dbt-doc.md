@@ -60,13 +60,29 @@ Les données sources (4 fichiers CSV dans `seeds/`) sont chargées dans DuckDB v
 |---|---|---|
 | `matches_19302010.csv` | `data_raw/matches_19302010.csv` | Coupes du Monde 1930–2010 (finales + qualifications) |
 | `world_cup_matches_2014.csv` | `data_raw/WorldCupMatches2014.csv` | Coupe du Monde 2014 (Brésil) |
+| `worldcup_2018.csv` | `data_raw/data_2018.json` (aplati) | Coupe du Monde 2018 (Russie) |
 | `worldcup_2022.csv` | `data_raw/worldcup_2022.json` (aplati) | Coupe du Monde 2022 (Qatar) |
 
 ### Configuration des seeds (`seeds/schema.yml`)
 
 - `matches_19302010` : délimiteur `,`
 - `world_cup_matches_2014` : délimiteur `;`, colonnes de buts castées en `integer`
+- `worldcup_2018` : délimiteur `,`, `home_result` / `away_result` castés en `integer`
 - `worldcup_2022` : délimiteur `,`, `home_result` / `away_result` castés en `integer`
+
+### Aplatissement de `data_2018.json`
+
+Contrairement aux autres sources, `data_raw/data_2018.json` n'est pas un simple CSV — c'est un fichier JSON structuré avec des IDs internes pour les équipes et les stades :
+
+```
+data_2018.json
+├── stadiums   [{id, name, city, …}]
+├── teams      [{id, name, …}]
+├── groups     {a: {name, matches: [{home_team: id, away_team: id, …}]}, …}
+└── knockout   {round_16: {matches: […]}, round_8: …, round_2: …}
+```
+
+Le script de génération du seed résout les IDs → noms, fusionne groupes et phases finales, et produit un CSV au même format que `worldcup_2022.csv` (`round, date, team1, team2, ground, home_result, away_result`).
 
 ---
 
