@@ -15,6 +15,7 @@ with editions as (
       and edition is not null
 
     union all select 2014, 'Brazil'
+    union all select 2018, 'Russia'
     union all select 2022, 'Qatar'
 
 )

@@ -31,6 +31,15 @@ with teams as (
 
     union
 
+    -- 2018
+    select trim(team1) as team_name from {{ ref('worldcup_2018') }}
+
+    union
+
+    select trim(team2) as team_name from {{ ref('worldcup_2018') }}
+
+    union
+
     -- 2022
     select trim(team1) as team_name from {{ ref('worldcup_2022') }}
 

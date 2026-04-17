@@ -62,6 +62,21 @@ wc2014 as (
     ) = 1
 ),
 
+-- 2018
+wc2018 as (
+    select
+        trim(team1)                                      as home_team,
+        trim(team2)                                      as away_team,
+        home_result::integer                             as home_result,
+        away_result::integer                             as away_result,
+        date::date                                       as match_date,
+        round,
+        trim(regexp_extract(ground, '^([^,]+)', 1))      as stadium_name,
+        2018                                             as edition_year
+
+    from {{ ref('worldcup_2018') }}
+),
+
 -- 2022
 wc2022 as (
     select
@@ -87,6 +102,8 @@ all_matches as (
     select * from hist
     union all
     select * from wc2014
+    union all
+    select * from wc2018
     union all
     select * from wc2022
 ),

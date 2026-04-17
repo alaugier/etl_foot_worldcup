@@ -20,6 +20,14 @@ seeds:
         RoundID: integer
         MatchID: integer
 
+  - name: worldcup_2018
+    description: "World Cup 2018 match results (flattened from data_2018.json)"
+    config:
+      delimiter: ","
+      column_types:
+        home_result: integer
+        away_result: integer
+
   - name: worldcup_2022
     description: "World Cup 2022 match results (flattened from worldcup.json)"
     config:
