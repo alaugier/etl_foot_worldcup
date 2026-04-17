@@ -283,7 +283,7 @@ LIMIT 10;
 +------------------+------------+
 10 rows in set (0.00 sec)
 
-**Interprétation attendue :**  
+**Interprétation :**  
 Des villes comme Mexico City, Rio, Berlin, Doha peuvent apparaître selon les éditions.
 
 ---
@@ -303,21 +303,28 @@ GROUP BY s.stadium_name, c.city_name
 ORDER BY nb_matches DESC
 LIMIT 10;
 ```
-+-------------------------------+------------------+------------+
-| stadium_name                  | city_name        | nb_matches |
-+-------------------------------+------------------+------------+
-| UNKNOWN                       | Montevideo       |        772 |
-| Lusail Iconic Stadium         | Lusail           |         11 |
-| Al Bayt Stadium               | Al Khor          |          9 |
-| Al Thumama Stadium            | Doha             |          8 |
-| Khalifa International Stadium | Al Rayyan        |          8 |
-| Ahmad bin Ali Stadium         | Al Rayyan        |          7 |
-| Al Janoub Stadium             | Al Wakrah        |          7 |
-| Estadio do Maracana           | Rio de Janeiro   |          7 |
-| Estadio Nacional              | Brasilia         |          7 |
-| Krestovsky Stadium            | Saint Petersburg |          7 |
-+-------------------------------+------------------+------------+
-10 rows in set (0.00 sec)
++---------------------------+-------------------+------------+
+| stadium_name              | city_name         | nb_matches |
++---------------------------+-------------------+------------+
+| UNKNOWN_2006-GERMANY      | MA 1/4nchen       |         64 |
+| UNKNOWN_1998-FRANCE       | Paris             |         64 |
+| UNKNOWN_2010-SOUTH AFRICA | Johannesburg      |         64 |
+| UNKNOWN_2002-KOREA/JAPAN  | Seoul             |         64 |
+| UNKNOWN_1990-ITALY        | Milan             |         52 |
+| UNKNOWN_1994-USA          | Chicago           |         52 |
+| UNKNOWN_1986-MEXICO       | Mexico City       |         52 |
+| UNKNOWN_1982-SPAIN        | Barcelona         |         52 |
+| UNKNOWN_1974-FRG          | Frankfurt am Main |         38 |
+| UNKNOWN_1978-ARGENTINA    | Buenos Aires      |         38 |
++---------------------------+-------------------+------------+
+10 rows in set (0.01 sec)
+
+**Interprétation :**
+
+- Les éditions anciennes (avant 2014) ne fournissent pas les noms de stades dans les données sources.  
+- L’ETL regroupe donc les matchs par édition sous des stades “UNKNOWN_YYYY-COUNTRY”.  
+- Les valeurs 64, 52, 38 correspondent au nombre total de matchs par édition.  
+- Le résultat est cohérent avec le format des Coupes du Monde et la structure des données disponibles.
 
 ---
 
