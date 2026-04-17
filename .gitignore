@@ -96,17 +96,10 @@ logs/dbt.log
 # Config files with credentials
 config/db_config.yaml
 
-# Documentation interne non destinée au dépôt
-docs/etl_load_mysql_explained.md
-docs/etl_transform_explained.md
-docs/extract_final_results_2022.md
-docs/fonction_clean_team_name.md
-docs/main_explained.md
-docs/pd_concat_two_columns.md
-docs/regex.md
-docs/reserved_sql_keywords_and_use_of_backticks.md
-docs/useful_commandes_bash.md
-docs/git_workflow_explained.md
+# Ignorer tous les .md dans docs sauf ceux à conserver
+docs/*.md
+!docs/kpi.md
+!docs/etl_overview.md
 
 # Markdown exports of notebooks (not versioned)
 notebooks/*.md
