@@ -23,7 +23,14 @@ with stadiums as (
 
     union
 
-    -- 2022: "Al Bayt Stadium, Al Khor" → stadium / city
+    -- 2018 & 2022: "Stadium, City" → stadium / city
+    select
+        trim(regexp_extract(ground, '^([^,]+)',    1)) as stadium_name,
+        trim(regexp_extract(ground, ',\s*([^,]+)$', 1)) as city_name
+    from {{ ref('worldcup_2018') }}
+
+    union
+
     select
         trim(regexp_extract(ground, '^([^,]+)',    1)) as stadium_name,
         trim(regexp_extract(ground, ',\s*([^,]+)$', 1)) as city_name
