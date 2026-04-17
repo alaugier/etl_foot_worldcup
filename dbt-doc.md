@@ -4,19 +4,53 @@ Documentation du pipeline de transformation dbt avec DuckDB pour le projet `etl_
 
 ---
 
-## Vue d'ensemble
+## Qu'est-ce que dbt ?
+
+**dbt** (data build tool) est un outil open-source de transformation de données qui permet d'écrire la logique de transformation **uniquement en SQL** (ou Python), tout en gérant automatiquement l'ordre d'exécution, la documentation et les tests de qualité.
+
+### Principes clés
+
+| Concept | Description |
+|---|---|
+| **Modèles** | Fichiers `.sql` contenant un `SELECT`. dbt se charge de créer la table ou la vue correspondante dans la base. |
+| **Seeds** | Fichiers CSV chargés directement dans la base via `dbt seed` — utiles pour les données de référence ou les petits jeux de données bruts. |
+| **Tests** | Assertions déclaratives (unicité, non-nullité, valeurs acceptées…) définies en YAML et exécutées via `dbt test`. |
+| **Lineage** | dbt calcule automatiquement le graphe de dépendances entre modèles grâce à la fonction `{{ ref('nom_modele') }}`. |
+| **Profiles** | Fichier `profiles.yml` qui configure la connexion à la base de données (ici DuckDB). |
+
+### Pourquoi dbt + DuckDB ?
+
+**DuckDB** est un moteur SQL analytique embarqué (pas de serveur à démarrer), optimisé pour les requêtes analytiques sur fichiers locaux. L'adaptateur `dbt-duckdb` permet de l'utiliser comme backend dbt : tout s'exécute localement en mémoire/fichier, sans infrastructure.
+
+C'est la combinaison idéale pour un pipeline analytique léger :
+- ✅ Pas de serveur, pas de cloud
+- ✅ SQL analytique moderne (fenêtrage, `QUALIFY`, regex…)
+- ✅ Résultats persistés dans un fichier `.duckdb` requêtable directement depuis Python/notebooks
+
+### Commandes principales
+
+```bash
+dbt seed    # Charge les CSV (seeds/) dans DuckDB
+dbt run     # Exécute les modèles SQL → construit les tables
+dbt test    # Vérifie les contraintes de qualité
+dbt docs generate && dbt docs serve  # Génère et sert la documentation interactive
+```
+
+---
+
+## Vue d'ensemble du pipeline
 
 ```
 seeds/ (CSV bruts)
     ↓  dbt seed
-DuckDB (tables de staging)
+DuckDB (tables sources)
     ↓  dbt run
 DuckDB (star schema)
     ↓  dbt test
 21 tests de qualité
 ```
 
-Les données sources (3 fichiers CSV dans `seeds/`) sont chargées dans DuckDB via `dbt seed`, puis transformées en schéma en étoile par les 5 modèles SQL dans `models/`.
+Les données sources (4 fichiers CSV dans `seeds/`) sont chargées dans DuckDB via `dbt seed`, puis transformées en schéma en étoile par les 5 modèles SQL dans `models/`.
 
 ---
 
