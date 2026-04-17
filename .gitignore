@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*.pyc
 *.py[codz]
 *$py.class
 
@@ -75,6 +76,9 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+
+# Jupyter auto-generated folders
+notebooks/*_files/
 
 # IPython
 profile_default/
